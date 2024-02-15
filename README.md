@@ -32,5 +32,19 @@ From the screenshot above, we can see that Git asks us to commit or stash the ch
 
 2) Using local overrides or configurations: At times, there are certain mock props, API keys or AWS credntials etc which we need to use in the local working directory, but we don't want to push them to the remote repository. In this case, we can stash the configurations etc before pushing to the remote repository. 
 
-**Let's now try to get our hands on stash**
+**Let's now try to use git stash**
 
+For the demonstration purpose, let's create `correct.js` and `wrong.js` . `wrong.js` is a piece of dirty code that we don't want to be present in the next commit, hence we will use git stash.
+
+Before git stash:
+
+![Git-before-stash](./Git-before-stash.png)
+![Git-after-stash](./Git-after-stash.png)
+
+As we can see from the screenshot above, we committed `correct.js` and staged `wrong.js` for stashing. Before stashing, the working directory had both `correct.js` and `wrong.js` in it, but after using `git stash`, the staged files (wrong.js) were moved to the stash, and the working directory only had `correct.js`
+
+Let's also take a look at the message which we got while stashing the changes and try to understand: 
+
+`Saved working directory and index state WIP on main: 027e083 Initial commit` 
+
+This message tells us that by using `git stash`, the working directory and the staging area work-in-progress from the branch main (which points to the commit 027e083 with the commit message Initial commit) has been saved into stash.
