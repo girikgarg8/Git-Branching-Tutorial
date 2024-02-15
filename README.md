@@ -65,3 +65,24 @@ Another important note: By using the `--include-untracked` flag, we can stash th
 
 **Let's try to create multiple stashes, and see how we can apply a specific stash**
 
+For the purpose of this demonstration, we have created two different stashes on two different files `wrong.js` and `wrong_2.js`. When we use `git stash apply`, we see the output as below:
+
+![Git-multiple-stashes](./Git-multiple-stashes.png)
+
+Let's try to apply both of the stashes one by one:
+
+![Git-stash-apply-stash-index-0](./Git-stash-apply-stash-index-0.png)
+
+From the screenshot above, we can see that when we apply the most recent stash, we get back the `wrong_2.js` in the working directory.
+
+![Git-stash-apply-stash-index-1](./Git-stash-apply-stash-index-1.png)
+
+From the screenshot above, we can see that when we apply the second stash, we get back the `wrong.js` back in the working directory. (The `wrong_2.js` file is from the stash applied in the previous step).
+
+Sometimes, there can be merge conflicts when different stashes work on the same set of lines of the same file. In such cases, we need to resolve the merge conflict. For demonstration, we will be creating two stashes on the same file `wrong.js`. We'll then try to apply the stashes, it will lead to a merge conflict. See below:
+
+![Git-stash-merge-conflict](./Git-stash-merge-conflict.png)
+
+As we can see from the screenshot above, there's a merge conflict when the two stashes work on the same set of files. We need to resolve the conflict in such a case, VS code provides a convenient interface to resolve the merge conflicts.
+
+![Git-stash-resolving-merge-conflicts](./Git-resolving-stash-merge-conflicts.png)
