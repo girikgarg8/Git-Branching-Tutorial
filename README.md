@@ -2,9 +2,9 @@
 
 **Firstly, what is a stash in Git?**
 
-Stash can be said to a private locker where the changes are stored temporarily,  anything that is stashed is not a part of the commit.
+Stash can be said to a private locker where the changes are stored temporarily, anything that is stashed is not a part of the commit.
 
-Technically speaking, whenever we have some code changes that we don't want to be part of the next commit, we can add those chages to the staging area and use `git stash`.
+Technically speaking, whenever we have some code changes that we don't want to be part of the next commit, we can add those chages to the staging area and use `git stash`. It's important to know that stash behaves like a stack data structure.
 
 **What are the usecases of Git stash in real life projects?** 
 
@@ -41,10 +41,27 @@ Before git stash:
 ![Git-before-stash](./Git-before-stash.png)
 ![Git-after-stash](./Git-after-stash.png)
 
-As we can see from the screenshot above, we committed `correct.js` and staged `wrong.js` for stashing. Before stashing, the working directory had both `correct.js` and `wrong.js` in it, but after using `git stash`, the staged files (wrong.js) were moved to the stash, and the working directory only had `correct.js`
+As we can see from the screenshots above, we committed `correct.js` and staged `wrong.js` for stashing. Before stashing, the working directory had both `correct.js` and `wrong.js` in it, but after using `git stash`, the staged files (wrong.js) were moved to the stash, and the working directory only had `correct.js`
 
-Let's also take a look at the message which we got while stashing the changes and try to understand: 
+**Let's also take a look at the message which we got while stashing the changes and try to understand:** 
 
 `Saved working directory and index state WIP on main: 027e083 Initial commit` 
 
 This message tells us that by using `git stash`, the working directory and the staging area work-in-progress from the branch main (which points to the commit 027e083 with the commit message Initial commit) has been saved into stash.
+
+Another important note: By using the `--include-untracked` flag, we can stash the changes both from working area as well as the staging area. Without this flag, git only stashes the changes from staging area.
+
+`git stash list` lists the current stash entries. Each stash entry is listed with its name (e.g. stash@{0} is the latest entry, stash@{1} is the one before, etc.), the name of the branch that was current when the entry was made, and a short description of the commit the entry was based on. See the screenshot below:
+
+![Git-stash-list](./Git-stash-list.png)
+
+`git stash apply` reapplies the changes stashed in the latest stash, and also doesn't remove the state from the stash list. See the screenshot below:
+
+![Git-stash-apply](./Git-stash-apply.png)
+
+`git stash show stash@{stash_index}` shows the diff between the stashed contents and the commit back when the stash entry was first created. As an example, if the stash was created when the last commit was '01234', this command shows the diff between the stashed contents and commit '01234'. See the example below:
+
+![Git-stash-show](./Git-stash-show.png)
+
+**Let's try to create multiple stashes, and see how we can apply a specific stash**
+
