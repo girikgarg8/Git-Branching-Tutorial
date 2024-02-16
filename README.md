@@ -86,3 +86,11 @@ Sometimes, there can be merge conflicts when different stashes work on the same 
 As we can see from the screenshot above, there's a merge conflict when the two stashes work on the same set of files. We need to resolve the conflict in such a case, VS code provides a convenient interface to resolve the merge conflicts.
 
 ![Git-stash-resolving-merge-conflicts](./Git-resolving-stash-merge-conflicts.png)
+
+**How to include specific files only in the stash?**
+
+Approach #1 : Only stage those specific file(s) to the staging area. Then use `git stash`
+
+Approach #2 : Use `git stash -- <filename>` (for files in staging area) or `git stash --include-untracked -- <filename>` (for files in working area). See the screenshot below: 
+
+![Git-stash-specific-file](./Git-stash-specific-file.png)
