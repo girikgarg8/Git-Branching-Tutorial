@@ -94,3 +94,43 @@ Approach #1 : Only stage those specific file(s) to the staging area. Then use `g
 Approach #2 : Use `git stash -- <filename>` (for files in staging area) or `git stash --include-untracked -- <filename>` (for files in working area). See the screenshot below: 
 
 ![Git-stash-specific-file](./Git-stash-specific-file.png)
+
+Let's talk about `git stash pop`: This command is used to remove the changes from stash and reapply them to the working copy. As an example, we are going to create a stash for creating a new file 'dummy_stash_pop.txt', and then we will use `git stash pop` on it.
+
+![Git-stash-pop](./Git-stash-pop.png)
+
+As we can see from the screenshot above, on using `git stash pop`, the changes from the stash were applied to the working directory, and also the stash entry was popped from the stack.
+
+`Git stash drop stash@{index}` removes the stash entry from the list of stash entries, without applying the stash changes to the working directory. See the screenshot below:
+
+![Git-stash-drop](./Git-stash-drop.png)
+
+`Git stash clear` clears all the stash entries. See screenshot below:
+
+![Git-stash-clear](./Git-stash-clear.png)
+
+By default, Git automatically generates stash message based on the branch and the commit when creating a stash entry. However, we can give custom stash message, using:
+
+1. `git stash save <stash message>`: If the changes are staged
+
+2. `git stash save <stash message> --include-untracked`: If the changes are in the working area and not staged. See the screenshots below:
+
+![Git-stash-save-tracked](./Git-stash-save-tracked.png)
+
+![Git-stash-save-untracked](./Git-stash-save-untracked.png)
+
+**How to add a new file to an already existing git stash?**
+
+There's a hack/workaround to do this:
+
+1. Use `git stash pop` to apply the changes from the latest stash entry to the working directory. This also pops the entry from the stack.
+
+2. Now stage all the files, including the new file(s) that you want to stash.
+
+3. Now use `git stash` to stash the changes.
+
+See demonstration below: here we demonstrated how we can add a file `newfile.js` to an existing stash.
+
+![Git-stash-add-new-file-part-1](./Git-stash-add-new-file-part-1.png)
+
+![Git-stash-add-new-file-part-2](./Git-stash-add-new-file-part-2.png)
