@@ -211,3 +211,25 @@ Let's understand what happens, when we create a new branch using `git checkout -
 As we can see from the figure above, when we checkout a new branch, we are just creating a new pointer to the current commit. Now, as we create commits in the commit history, the branch pointer also updates itself, see the figure below:
 
 ![Git-checkout-branch-pointer-move](./Git-checkout-branch-pointer-move.png)
+
+**Let's also talk about the HEAD pointer**
+
+'HEAD' is also one of the most misunderstood concepts in Git. 
+
+Precisely speaking, HEAD points to the current branch you're working on, and since a branch points to a commit, HEAD indirectly points to a current (not necessarily the latest) branch on the current branch.
+
+**Let's play around with HEAD pointer:**
+
+![Git-HEAD-after-first-commit](./Git-HEAD-after-first-commit.png)
+
+As we can see from the `git log`, the `HEAD` points to the `main` branch, and the `main` branch points to the `initial commit`.
+
+Let's try to checkout a new branch, and see:
+
+![Git-checkout-branch-pointer-HEAD](./Git-checkout-branch-pointer-HEAD.png)
+
+From the screenshot above, we can observe that:
+
+1. When we checkout a new branch, both the `main` and the `feature_branch` are pointing to the same commit.
+
+2. The `HEAD` pointer is pointing to the current branch `feature_branch`.
