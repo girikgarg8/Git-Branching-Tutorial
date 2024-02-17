@@ -190,4 +190,4 @@ See the screenshot below:
 
 ![Git-reflog](./Git-reflog.png)
 
-As we can see from the screenshot above, the `reflog` shows all the changes to the `HEAD` pointer, `HEAD@{n}` means `where HEAD pointer used to be n moves ago` 
+As we can see from the screenshot above, the `reflog` shows all the changes to the `HEAD` pointer, `HEAD@{n}` indicates `where HEAD pointer used to be n moves ago`. Also, when we amend the commit, it doesn't show up in the `commit history` but would reflect in the `reflog`.
