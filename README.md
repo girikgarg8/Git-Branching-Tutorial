@@ -200,7 +200,9 @@ Branches are one of the most misunderstood concepts in Git.
 
 Many people visualize Git branches as parallel timelines of the project/repository, similar to what is depicted in the figure above. This understanding is good for visualization, but it's not entirely correct.
 
-Precisely speaking, **`Branch is a pointer to commit in the commit history`**, so the correct understanding of commit is depicted in the screenshot below:
+Precisely speaking, **`Branch is a pointer to commit in the commit history`**. It's important to know this fact so that going forward, we can understand the concept of `git reset` properly.
+
+The correct understanding of commit is depicted in the screenshot below:
 
 ![Git-branch-pointer-to-commit](./Git-branch-pointer-to-commit.png)
 
@@ -273,3 +275,59 @@ The two branches `master` and `feature_branch` are divergent because they diverg
 ![Git-divergent-branches-log](./Git-divergent-branches-log.png)
 
 From the screenshot above, we can see that there are two divergent branches from a common commit.
+
+**Let's also learn how to read the Git log graph**
+
+![Git-log-graph](./Git-log-graph.png)
+
+The vertices (marked by asterisks) represents the commits in the commit history. The two parallel timelines (edges) indicate the different branches.
+
+We can also explore `Gitlens for VS Code` extension which allows us to visualize the commit graph, authorship of code (blame annotations) etc.
+
+**How to check which branch HEAD is pointing to?**
+
+Option 1: Check using `git log`.
+
+Option 2: Inspect the contents of `.git/HEAD`, see example below:
+
+![Git-cat-HEAD](./Git-cat-HEAD.png)
+
+Let's take a look at the `Git feature branch workflow` :
+
+![Git-feature-branch-workflow](./Git-feature-branch-workflow.png)
+
+The developers in a team checkout a new feature branch from the master branch. When they are done with their changes, they don't directly merge their code to the production branch, they instead merge their code to the test branch. The QA/tester folks thoroughly test the code using unit tests, integration tests, end-to-end tests etc. Once the tests are passed, it is then merged to the production branch. Usually, only few developers are given access to merge to production branch.
+
+Hotfix branches : They allow developers to quickly fix critical issues in a production environment by working with the exact code deployed in production. 
+
+The workflow can differ depending upon the company structure or the team preferences.
+
+**Let's talk about tags in Git**
+
+Tag is a pointer to a specific commit in the commit history. It is different from a branch as a tag always points to a specific commit in the commit history, whereas the branch pointer changes when new commits are created in the commit history.
+
+The syntax for creating a tag in Git is `git tag -a <annotation> -m <tag message>`.
+
+Both the `-a` and `-m` options are mandatory to create a tag. The annotation is a quick description of the tag, whereas the tag message is a detailed description of the tag.
+
+Let's see this in action:
+
+![Git-tag-commit-history](./Git-tag-commit-history.png)
+
+![Git-tag-log](./Git-tag-log.png)
+
+From the screenshots above, we can see that the `tag pointer` doesn't move with the commits in the commit history, whereas the `branch pointer` moves when new commits are created in the commit history.
+
+In order to view a tag, use `git tag <tag annotation>`
+
+![Git-tag-show](./Git-tag-show.png)
+
+The tag object stores the tag annotation, tagger details, date and time of creating the tag, tag message and the details of the commit which the tag points to. 
+
+To see all the tags, we can use `git show-ref --tags` or list the contents of `.git/refs/tags`, see the screenshots below:
+
+![Git-show-ref](./Git-show-ref.png)
+
+In order to push the git tag to Github, use the syntax `git push origin <tag name>`. 
+
+If we wish to push all the tags, we can use `git push --tags` (not recommended though).
