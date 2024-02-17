@@ -331,3 +331,21 @@ To see all the tags, we can use `git show-ref --tags` or list the contents of `.
 In order to push the git tag to Github, use the syntax `git push origin <tag name>`. 
 
 If we wish to push all the tags, we can use `git push --tags` (not recommended though).
+
+**Let's now talk about open source contributions**
+
+Tips on how to contribute to an open source repository:
+
+1. Try to go through any live link of the project, and explore around.
+
+2. Setup the repository on your local. Consult the documentation to see the installation steps, contribution guide, Code of Conduct etc
+
+3. Go through the list of open issues - these can be bugs, feature requests etc.
+
+4. As a new contributor, try to look for an issue which is labelled as  a `good first issue`. 
+
+5. Since you might not be added as a collaborator to the repository, fork the repository. Then clone the forked repository using `git clone <repository>` 
+
+6. Checkout a new branch for the feature/bug that you will be working on.
+
+7. Make the required code changes. Make sure to use semantic commit messages. See this [link](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716) for more details.
