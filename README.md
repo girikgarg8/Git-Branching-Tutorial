@@ -4,7 +4,7 @@
 
 Stash can be said to a private locker where the changes are stored temporarily, anything that is stashed is not a part of the commit.
 
-Technically speaking, whenever we have some code changes that we don't want to be part of the next commit, we can add those chages to the staging area and use `git stash`. It's important to know that stash behaves like a stack data structure.
+Technically speaking, whenever we have some code changes that we don't want to be part of the next commit, we can add those changes to the staging area and use `git stash`. It's important to know that stash behaves like a stack data structure.
 
 **What are the usecases of Git stash in real life projects?** 
 
@@ -233,3 +233,27 @@ From the screenshot above, we can observe that:
 1. When we checkout a new branch, both the `main` and the `feature_branch` are pointing to the same commit.
 
 2. The `HEAD` pointer is pointing to the current branch `feature_branch`.
+
+Let's now try to create another commit in the `feature_branch` branch, and see the changes in the `feature_branch` and the `HEAD` pointer.
+
+![Git-HEAD-pointer-moves-after-commit-on-branch](./Git-HEAD-pointer-moves-after-commit-on-branch.png)
+
+From the screenshot above, we can see that the `main` branch points to the previous commit, and the `feature_branch` branch points to the new commit. Also, the `HEAD` pointer also moves along with the `feature_branch` branch pointer.
+
+Let's also explore a command that we'll be using to visualize the commit history in the form of a graph:
+
+`git log --all --decorate --oneline --graph`
+
+Let's do a step by step analysis of this command:
+
+`--all` shows all the branches, not just the current branch.
+
+`--decorate` makes the `git log` display all the references (like tags, branches) that point to a commit.
+
+`--oneline` flag condenses each commit to a single line.
+
+`--graph` option draws an ASCII graph representing the branch structure of the commit history.
+
+See this link [Atlassian Documentation](https://www.atlassian.com/git/tutorials/git-log) for more details, also refer to the example below:
+
+![Git-log-outputted-format](Git-log-outputted-format.png) 
