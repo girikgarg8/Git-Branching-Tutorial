@@ -257,3 +257,19 @@ Let's do a step by step analysis of this command:
 See this link [Atlassian Documentation](https://www.atlassian.com/git/tutorials/git-log) for more details, also refer to the example below:
 
 ![Git-log-outputted-format](Git-log-outputted-format.png) 
+
+In order to see all the branches, use `git branch`. 
+
+To switch to a particular branch, use `git checkout <branch name>`
+
+**Let's talk about divergent branches**
+
+Divergent branches in Git are two branches that have diverged from a common commit in the commit history. As an example, consider the figure below:
+
+![Git-divergent-branches](./Git-divergent-branches.png)
+
+The two branches `master` and `feature_branch` are divergent because they diverge from a common commit. Let's see this in the `git log` as well:
+
+![Git-divergent-branches-log](./Git-divergent-branches-log.png)
+
+From the screenshot above, we can see that there are two divergent branches from a common commit.
