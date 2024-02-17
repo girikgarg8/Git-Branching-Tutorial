@@ -191,3 +191,23 @@ See the screenshot below:
 ![Git-reflog](./Git-reflog.png)
 
 As we can see from the screenshot above, the `reflog` shows all the changes to the `HEAD` pointer, `HEAD@{n}` indicates `where HEAD pointer used to be n moves ago`. Also, when we amend the commit, it doesn't show up in the `commit history` but would reflect in the `reflog`.
+
+**Let's now explore about branches in Git**
+
+Branches are one of the most misunderstood concepts in Git.
+
+![Git-branch-parallel-timelines](./Git-branch-parallel-timelines.png)
+
+Many people visualize Git branches as parallel timelines of the project/repository, similar to what is depicted in the figure above. This understanding is good for visualization, but it's not entirely correct.
+
+Precisely speaking, **`Branch is a pointer to commit in the commit history`**, so the correct understanding of commit is depicted in the screenshot below:
+
+![Git-branch-pointer-to-commit](./Git-branch-pointer-to-commit.png)
+
+Let's understand what happens, when we create a new branch using `git checkout -b <branch name>`. For the demonstration,let's consider that we checkout the `dev` branch from the `master` branch.
+
+![Git-checkout-pointer-to-commit](./Git-checkout-pointer-to-commit.png)
+
+As we can see from the figure above, when we checkout a new branch, we are just creating a new pointer to the current commit. Now, as we create commits in the commit history, the branch pointer also updates itself, see the figure below:
+
+![Git-checkout-branch-pointer-move](./Git-checkout-branch-pointer-move.png)
