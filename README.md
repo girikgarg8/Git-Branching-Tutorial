@@ -344,8 +344,55 @@ Tips on how to contribute to an open source repository:
 
 4. As a new contributor, try to look for an issue which is labelled as  a `good first issue`. 
 
-5. Since you might not be added as a collaborator to the repository, fork the repository. Then clone the forked repository using `git clone <repository>` 
+5. Since you might not be added as a collaborator to the repository, fork the repository. Then clone the forked repository using `git clone <repository URL>` 
 
 6. Checkout a new branch for the feature/bug that you will be working on.
 
 7. Make the required code changes. Make sure to use semantic commit messages. See this [link](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716) for more details.
+
+8. Raise a pull request (PR). Address comments, if any on the PR. Else congratulations on your contribution !
+
+**Let's learn about upstream repository in Git**
+
+**What is it?**
+
+Refer to the diagram below:
+
+![Git-upstream-and-downstream](./Git-upstream-and-downstream.png)
+
+Talking about upstream and downstream: 
+
+In terms of source control, you're downstream when you clone from a repository. Information flowed "downstream" to you.
+
+When you make changes, you usually want to send them back "upstream" so they make it into that repository so that everyone pulling from the same source is working with all the same changes.
+
+**What are the ways to set the upstream?**
+
+There are two ways to set the upstream:
+
+1. By changing the fetch URL of the `origin` remote: 
+
+```
+git remote set-url origin /original/repo
+git remote set-url --push origin /your/fork
+```
+
+See example below:
+
+![Git-remote-set-push-url-remote](./Git-remote-set-push-url-remote.png)
+
+This is not the recommended way to set the upstream.
+
+2. By adding a new upstream remote:
+
+```
+git remote add origin upstream /original/repo
+```
+
+Use this remote to pull the changes using `git pull upstream <branch name>`. See the screenshots below:
+
+![Git-remote-add-upstream](./Git-remote-add-upstream.png)
+
+![Git-pull-upstream-main](./Git-pull-upstream-main.png)
+
+If you're aiming to contribute to Google Summer of Code (GSoC), there's a proposal document that you need to submit to the organization. See this [example](https://drive.google.com/file/d/1tG33LLWhy2lApiXaPl1ukRv7xho0V-Ne/view) for reference.
