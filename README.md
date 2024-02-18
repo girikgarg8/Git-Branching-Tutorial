@@ -399,7 +399,7 @@ If you're aiming to contribute to Google Summer of Code (GSoC), there's a propos
 
 ## Let's now learn about how we can fix mistakes in Git ##
 
-***Before we go ahead, there's an important lesson : `git checkout` is not only used to switch or create branches -  it can also be used to revert changes, checkout to a commit etc .***
+**Before we go ahead, there's an important lesson : `git checkout` is not only used to switch or create branches -  it can also be used to revert changes, checkout to a commit etc .**
 
 `git checkout -- <file>` restores the file to the last staged version, discarding any changes in the working area. See the [documentation](https://git-scm.com/docs/git-checkout) for more details.
 
@@ -416,3 +416,31 @@ Let's see this in action:
 ![Git-checkout-commit-file](./Git-checkout-commit-file.png)
 
 As we can see from the screenshot above, the contents of `wrong_3.js` are reverted to those of the specified commit.
+
+**Let's now talk about `git clean`**
+
+`git clean` is a convenient method for deleting untracked files in a repo's working directory. Let's explore some of the options :
+
+1. `--dry-run` : Don’t actually remove anything, just show what would be done.
+
+2. `-d` : Specify the directories also in the working directory. Without this flag, `git clean` will only list the files in the working directory.
+
+3. `-f` : If the git configuration variable `clean.requireForce` is not set to false, `git clean` will refuse to delete files or directories unless given `-f` or `-i` (interactive mode).
+
+Let's see this in action:
+
+![Git-clean-dry-run-only-files](./Git-clean-dry-run-only-files.png)
+
+From the screenshot above, we can see that by using the dry run, `git clean` tells us what files would be removed.
+
+![Git-clean-dry-run-including-directories](./Git-clean-dry-run-including-directories.png)
+
+From the screenshot above, we can see that by using the `-d` flag, we are able to list the directories as well.
+
+![Git-clean-files-only](./Git-clean-files-only.png)
+
+From the above screenshot, we can see that only the files got deleted in absence of the `-d` flag.
+
+![Git-clean-force-delete-directory](./Git-clean-force-delete-directory.png) 
+
+From the above screenshot, we can see that both files and directories got deleted by using `-d` flag.
