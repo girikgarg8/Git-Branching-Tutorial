@@ -172,7 +172,7 @@ Refer to this article: [Article Link](https://graphite.dev/blog/every-engineer-s
 
 Reflog is short for "Reference log". It is a file that stores the **chronological list of all changes made to the HEAD pointer** in the Git repository. Since the HEAD is a pointer to the current branch (that you are working on), and branch is a pointer to a commit, in essence, reflog tracks every commit ever made in the repository.
 
-It's always to debunk a myth that 'HEAD always (indirectly) points to the latest commit on the current branch' --> This statement is not always correct. The `**HEAD may not always point to the latest commit on the current branch- the HEAD might point to a commit instead of pointing to a branch (Detached state)`
+It's always to debunk a myth that 'HEAD always (indirectly) points to the latest commit on the current branch' --> This statement is not always correct. The `HEAD may not always point to the latest commit on the current branch- the HEAD might point to a commit instead of pointing to a branch (Detached state)`
 
 See this stackoverflow answer for more details: [Stackoverflow Link](https://softwareengineering.stackexchange.com/questions/363312/does-git-head-pointer-generally-usually-points-to-the-latest-last-end-commit-o)
 
@@ -444,3 +444,71 @@ From the above screenshot, we can see that only the files got deleted in absence
 ![Git-clean-force-delete-directory](./Git-clean-force-delete-directory.png) 
 
 From the above screenshot, we can see that both files and directories got deleted by using `-d` flag.
+
+## Let's talk about the detached HEAD state ##
+
+**What is detached HEAD state?**
+
+Detached HEAD state is when HEAD pointer points to a commit directly, instead of pointing to a branch.
+As an example, consider the figure below:
+
+![Git-detached-HEAD-state.png](./Git-detached-HEAD-state.png)
+
+**How does one get into the detached HEAD state?**
+
+You might get into the detached HEAD state, if you checkout to a commit by using `git checkout <commit>`. By using this command, the HEAD moves to the specified commit, thereby resulting in detached HEAD state.
+
+**What are the problems of being in detached HEAD state?**
+
+Let's understand this with the help of an illustration.
+
+Consider the `git log` before the `HEAD` was in detached head state :
+
+![Git-log-before-detached-HEAD](./Git-log-before-detached-HEAD.png)
+
+As we can see from the screenshot above, that the main branch points to the latest commit, and the `HEAD` points to the branch.
+
+Consider the `git log` after the `HEAD` is in detached head state :
+
+![Git-detached-HEAD-git-log](./Git-detached-HEAD-git-log.png)
+
+Let's now discuss what the problems are, being in detached head state:
+
+1. As we can see, the HEAD points to a commit, and lists the ancestor commits. The details of other commits (like the third and fourth commit) have vanished. (Why is it so? We discussed this earlier as well- it's because Git traverses the commit ancestry starting from the commit where HEAD points). Now, if by chance, the `master branch pointer` moves, then we might end up losing the branch pointer.
+
+2. There is a possibility of dangling commits while being in detached state. A dangling commit is a commit which is not referenced by any commit/branch/HEAD. Let's understand how this can happen:
+
+Let's say this is the situation right now:
+
+![Git-situation-before-new-commit-from-HEAD](./Git-situation-before-new-commit-from-HEAD.png)
+
+Now let's say, from the `HEAD` pointer, you make new commits, and that too, **without checking out a new branch**, so the situation is something along:
+
+![Git-situation-after-creating-new-commit-from-HEAD](./Git-situation-after-creating-new-commit-from-HEAD.png)
+
+Now, let's say after this, you checkout to the `master` branch, so the situation is something along:
+
+![Git-situation-after-checking-out-to-master](./Git-situation-after-checking-out-to-master.png)
+
+Now carefully note from the figure above, that the commit E is a dangling commit (as it doesn't have any other commit, branch or HEAD referencing to it). Similarly, commit D is also a dangling commit (The reference from commit E is not considered valid because E is itself a dangling commit). Hence, we have two dangling commits D and E. **The next time, Git does garbage collection, both these commits are going to be garbage collected and we will lose our changes**.
+
+However, the situation would have been different if we checked a new branch before making new commits. In that case, our commits would have not been dangling commits. See the figure below:
+
+![Git-situation-if-new-branch-checkout-from-HEAD](./Git-situation-if-new-branch-checkout-from-HEAD.png)
+
+**This is the reason why Git prompts us to checkout a new branch before making a new commit from detached HEAD.**
+
+References for the second point: 
+
+[Git Documentation](https://git-scm.com/docs/git-checkout)
+[Stackoverflow link](https://softwareengineering.stackexchange.com/questions/363312/does-git-head-pointer-generally-usually-points-to-the-latest-last-end-commit-o)
+
+**How can we get out of the detached HEAD state?**
+
+Option 1: Checkout to the branch using `git checkout <branch name>`. See example below:
+
+![Git-recover-from-detached-HEAD-by-checking-out-branches](./Git-recover-from-detached-HEAD-by-checking-out-branches.png)
+
+Option 2: Use `git switch -` (as suggested by the Git prompt). See example below:
+
+![Git-recover-from-detached-HEAD-using-switch](./Git-recover-from-detached-HEAD-using-switch.png)
