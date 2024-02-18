@@ -396,3 +396,23 @@ Use this remote to pull the changes using `git pull upstream <branch name>`. See
 ![Git-pull-upstream-main](./Git-pull-upstream-main.png)
 
 If you're aiming to contribute to Google Summer of Code (GSoC), there's a proposal document that you need to submit to the organization. See this [example](https://drive.google.com/file/d/1tG33LLWhy2lApiXaPl1ukRv7xho0V-Ne/view) for reference.
+
+## Let's now learn about how we can fix mistakes in Git ##
+
+***Before we go ahead, there's an important lesson : `git checkout` is not only used to switch or create branches -  it can also be used to revert changes, checkout to a commit etc .***
+
+`git checkout -- <file>` restores the file to the last staged version, discarding any changes in the working area. See the [documentation](https://git-scm.com/docs/git-checkout) for more details.
+
+Let's see this in action: 
+
+![Git-checkout-file](./Git-checkout-file.png)
+
+As we can see from the screenshot above, the contents of `wrong_2.txt` are replaced by the last staged version.
+
+The documentation also mentions `When the <tree-ish> is given, overwrite both the index and the working tree with the contents at the <tree-ish>.` What this means is that, by using `git checkout <commit hash> -- <file>`, we can revert the file to its version in that specific commit.
+
+Let's see this in action:
+
+![Git-checkout-commit-file](./Git-checkout-commit-file.png)
+
+As we can see from the screenshot above, the contents of `wrong_3.js` are reverted to those of the specified commit.
