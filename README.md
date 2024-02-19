@@ -512,3 +512,99 @@ Option 1: Checkout to the branch using `git checkout <branch name>`. See example
 Option 2: Use `git switch -` (as suggested by the Git prompt). See example below:
 
 ![Git-recover-from-detached-HEAD-using-switch](./Git-recover-from-detached-HEAD-using-switch.png)
+
+**Let's also see how we can use filters on `git log`**
+
+We can use filters like filtering commits based on their time, or use regex search on commit messages. See examples below:
+
+`git log --since="yesterday"`
+
+![Git-log-since-yesterday](./Git-log-since-yesterday.png)
+
+`git log --since=7.hour`
+
+![Git-log-since-7-hours](./Git-log-since-7-hours.png)
+
+`git log --grep=Second`
+
+![Git-log-grep](./Git-log-grep.png)
+
+**Let's now talk about HEAD^ and HEAD~ in Git**
+
+These are frequently used in `git reset` command.
+
+Reference Link: [Stackoverflow Link](https://stackoverflow.com/questions/2221658/whats-the-difference-between-head-and-head-in-git)
+
+The difference:
+
+1. `HEAD~n` refers to the nth ancestor of HEAD. As an example, `HEAD~2` would mean the grandparent of HEAD.
+
+2. `HEAD^n` refers to the nth parent of HEAD. As an example, `HEAD^2` would mean the 2nd parent of HEAD. This is particularly useful in case of merge commits, which have multiple parents. And yes, a commit can have more than 2 parents as well, see [this](https://softwareengineering.stackexchange.com/questions/314215/can-a-git-commit-have-more-than-2-parents) as an example.
+
+The mnemonic to remember this difference:
+
+1. `~` looks almost linear and wants to backward in a straight line.
+
+2. `^` looks like a fork and suggests a merge commit.
+
+**Let's understand merge commit and fast-forward merge**
+
+Let's consider the situation before making a merge commit, we have two branches: main and `feature_branch`. We want to merge the `feature_branch` into the main branch, so we checkout to the main branch and use `git checkout feature_branch`.
+
+![Git-situation-before-merge-commit](./Git-situation-before-merge-commit.png)
+
+After the feature branch is merged into the main, the situation is something along:
+
+![Git-situation-after-merge-commit](./Git-situation-after-merge-commit.png)
+
+Notice carefully, that the master branch points to the merge commit, and the feature branch still points to the latest commit on the commit before the merge.
+
+Let's replicate this scenario in Git and see:
+
+Git log before merge commit:
+
+![Git-log-before-merge-commit](./Git-log-before-merge-commit.png)
+
+Git log after merge commit:
+
+![Git-log-after-merge-commit](./Git-log-after-merge-commit.png)
+
+Please note that the commit ID `47f0c83` is referred to with an asterisk, in fact every commit is represented by an asterisk in the graph.
+
+Let's now try to see the first parent of the merge commit (the commit on the master branch):
+
+![Git-show-HEAD^1](./Git-show-HEAD^1.png)
+
+Let's try to see the second parent of the merge commit (the commit on the feature branch):
+
+![Git-show-HEAD^2](./Git-show-HEAD^2.png)
+
+Let's try to see the first parent and the grandparent (parent's parent commit) of HEAD:
+
+![Git-show-HEAD~1](./Git-show-HEAD~1.png)
+
+![Git-show-HEAD~2](./Git-show-HEAD~2.png)
+
+**Now let's understand fast forward merge**
+
+Fast forward merge is used when we want to merge two branches which have not diverged yet. As an example, consider the situation below:
+
+![Git-fast-forward-merge-scenario](./Git-fast-forward-merge-scenario.png)
+
+The branches `master` and `feature branch` are not divergent branches. Hence, if we want to merge `feature branch` into `master`, we don't need to create a merge commit. Instead, we can move the `master branch pointer` to point to the commit that `feature branch` is pointing to. The situation after the fast forward merge would be:
+
+![Git-after-fast-forward-merge-scenario](./Git-after-fast-forward-merge-scenario.png)
+
+Let's also see this in action in Git:
+
+The situation before fast forward merge:
+
+![Git-before-fast-forward-merge](./Git-before-fast-forward-merge.png)
+
+The situation after fast forward merge:
+
+![Git-after-fast-forward-merge](./Git-after-fast-forward-merge.png)
+
+Using `HEAD~` after fast forward merge:
+
+![Git-HEAD~-after-fast-forward-merge](./Git-HEAD~-after-fast-forward-merge.png)
